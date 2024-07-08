@@ -316,6 +316,8 @@ export class ExampleService {
 
       const input = {
           bucket: "example-bucket",
+          key: "files.txt",
+          content: "Hello World!",
        }
 
       const response = await this.linodeService.putObjectInBucket(input);
@@ -340,7 +342,7 @@ export class ExampleService {
 | -------------------- | ---------------------------------------- | ------------------- |
 | `acl`       |  string               | `(Optional)` Access Control List (ACL) settings for the bucket. Possible values are: private, public-read, public-read-write. private makes the bucket and its contents accessible only to the owner. public-read allows read access by anyone. public-read-write allows both read and write access by anyone. Defaults to private.|
 | `key`   |  string                    | `(Required)` filename   |
-| `content`   |  buffer                    | `(Required)` the file body   |
+| `content`   | Buffer \| Uint8Array \| string | `(Required)` The file body, which can be provided as a Buffer, Uint8Array, or string.                  |
 | `bucket`     |string |`(Optional)` Defaults to the bucket specified in environment variables.   |
 | `region` | string             | `(Optional)` Defaults to the region specified in environment variables.|
 | `options(path)`  | string | `(Optional)`  The folder path.     |
