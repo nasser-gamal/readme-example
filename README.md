@@ -358,7 +358,7 @@ export class ExampleService {
 
 
 ```typescript
-// The following example retrieves a list of buckets per region
+// The following example retrieves a list of objects in bucket
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -417,3 +417,186 @@ export class ExampleService {
 
 
 
+
+<details>
+  <summary>
+  GetObjectInBucket
+  </summary>
+
+
+```typescript
+// The following example retrieve an object in bucket
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        bucket: 'example-bucket',
+        key: "file.txt"
+      }
+
+      const response = await this.linodeService. getObjectInBucket(input);
+
+    /* response example
+    {
+      {
+    "$metadata": {
+        "httpStatusCode": 200,
+        "requestId": "tx000000195b2520f23g4fa-01268c073f-65db69c4-default",
+        "attempts": 1,
+        "totalRetryDelay": 0
+    },
+    "Contents": [
+        {
+            "Key": "example.txt",
+            "LastModified": "2024-07-08T08:48:24.119Z",
+            "ETag": "\"2c935d77a378c30f029e868236949087\"",
+            "Size": 628,
+            "StorageClass": "STANDARD"
+        }
+    ],
+    "IsTruncated": false,
+    "KeyCount": 1,
+    "MaxKeys": 1000,
+    "Name": "examplebucket",
+    "Prefix": ""
+    } 
+    }
+    */
+  }
+}
+```
+
+
+
+
+
+## GetObjectInBucket Input
+
+| Parameter             | Type                              | Description             |
+| -------------------- | ---------------------------------------- | ------------------- |
+| `bucket` | string             | `(Optional)` Defaults to the bucket specified in environment variables.|
+ `key`  | string | `(Required)` The file path |
+
+
+</details>
+
+
+
+
+
+<details>
+  <summary>
+  GetFolderInBucket
+  </summary>
+
+
+```typescript
+// The following example retrieve an object in bucket
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        bucket: 'example-bucket',
+      }
+
+      const response = await this.linodeService. getFoldersInBucket(input);
+
+    /* response example
+      [
+        {
+            "Prefix": "images/"
+        },
+        {
+            "Prefix": "programming/"
+        }
+      ]
+    */
+  }
+}
+```
+
+
+
+## GetFoldersInBucket Input
+
+| Parameter             | Type                              | Description             |
+| -------------------- | ---------------------------------------- | ------------------- |
+| `bucket` | string             | `(Optional)` Defaults to the bucket specified in environment variables.|
+ `key`  | string | `(Required)` The file path |
+
+
+</details>
+
+
+
+
+<details>
+  <summary>
+  CreateObjectURL
+  </summary>
+
+
+```typescript
+// The following example retrieve an object in bucket
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        bucket: 'example-bucket',
+        key: 'filePath';
+        expires: 60;
+      }
+
+      const response = await this.linodeService. createObjectURL(input);
+
+    /* response example
+        return url link for example:
+         https://example-bucket.eu-central-1.linodeobjects.com/files/file.txt
+    */
+  }
+}
+```
+
+
+
+## CreateObjectURL Input
+
+| Parameter             | Type                              | Description             |
+| -------------------- | ---------------------------------------- | ------------------- |
+| `bucket` | string             | `(Optional)` Defaults to the bucket specified in environment variables.|
+ `key`  | string | `(Required)` The file path |
+ `expires`  | number | `(Optional)`The time in seconds before the URL expires. . Defaults to `60 sec`. |
+
+
+</details>
+
+
+
+
+
+- createBucket
+- getBuckets
+- getBucketsPerRegion
+- getBucket
+- getListObjectsInBucket
+- getObjectInBucket
+- getFoldersInBucket
+- putObjectInBucket
+- createObjectURL
+- copyObjectInBucket
+- moveObjectInBucket
+- deleteObjectInBucket
+- deleteObjectsInBucket
+- deleteStorageBucket
