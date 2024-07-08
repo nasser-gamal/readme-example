@@ -175,15 +175,15 @@ export class ExampleService {
     /* response example
     {
     "data": [
-              {
-                  "hostname": "example-bucket.eu-central-1.linodeobjects.com",
-                  "label": "example-bucket",
-                  "created": "2024-07-04T22:29:48",
-                  "region": "eu-central",
-                  "cluster": "eu-central-1",
-                  "size": 0,
-                  "objects": 0
-              },
+          {
+              "hostname": "example-bucket.eu-central-1.linodeobjects.com",
+              "label": "example-bucket",
+              "created": "2024-07-04T22:29:48",
+              "region": "eu-central",
+              "cluster": "eu-central-1",
+              "size": 0,
+              "objects": 0
+          },
          ],
           "page": 1,
           "pages": 1,
@@ -212,7 +212,7 @@ import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 export class ExampleService {
   constructor(private readonly linodeService: LinodeService) {}
  
-      const response = await this.linodeService. getBucketsPerRegion(region);
+      const response = await this.linodeService.getBucketsPerRegion(region);
 
     /* response example
    {
