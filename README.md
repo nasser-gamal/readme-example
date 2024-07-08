@@ -1,4 +1,4 @@
-# NX NestJS LinodeSDK Module
+# NX NestJS Linode Module
 
 This package provides a service to interact with Linode Object Storage using the AWS SDK. It includes methods for creating, listing, and deleting buckets and objects, as well as other utility functions.
 
@@ -108,19 +108,19 @@ import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 export class ExampleService {
   constructor(private readonly linodeService: LinodeService) {}
 
-  async createNewBucket() {
+  async createBucket() {
     const input = {
       acl: 'private',         
       corsEnabled: false,      
-      bucket: 'examplebucket', 
+      bucket: 'example-bucket', 
       region: 'ue-central-1',  
     };
     const response = await this.linodeService.createBucket(input);
 
     /* response example
     {
-      "hostname": "examplebucket.eu-central-1.linodeobjects.com",
-      "label": "examplebucket",
+      "hostname": "example-bucket.eu-central-1.linodeobjects.com",
+      "label": "example-bucket",
       "created": "2024-07-07T18:29:43",
       "region": "eu-central",
       "cluster": "eu-central-1",
@@ -137,7 +137,7 @@ export class ExampleService {
 | -------------------- | ---------------------------------------- | ------------------- |
 | `acl`       |  string               | `(Optional)` Access Control List (ACL) settings for the bucket. Possible values are: private, public-read, public-read-write. private makes the bucket and its contents accessible only to the owner. public-read allows read access by anyone. public-read-write allows both read and write access by anyone. Defaults to private.|
 | `corsEnabled`   |  boolean                    | `(Optional)` Whether Cross-Origin Resource Sharing (CORS) is enabled for the bucket. `Default is false.`    |
-| `bucket`     |string |`(Required)` The name of the bucket to create. Must be unique within the selected data center.   |
+| `bucket`     |string |`(Required)` The name of the bucket to create.   |
 | `region` | string             | `(Optional)` The region where the bucket will be created. Defaults to the region specified in environment variables.|
  
 
@@ -175,20 +175,20 @@ export class ExampleService {
     /* response example
     {
     "data": [
-        {
-            "hostname": "examplebucket.eu-central-1.linodeobjects.com",
-            "label": "examplebucket",
-            "created": "2024-07-04T22:29:48",
-            "region": "eu-central",
-            "cluster": "eu-central-1",
-            "size": 0,
-            "objects": 0
-        },
-    ],
-    "page": 1,
-    "pages": 1,
-    "results": 3
-}
+              {
+                  "hostname": "example-bucket.eu-central-1.linodeobjects.com",
+                  "label": "example-bucket",
+                  "created": "2024-07-04T22:29:48",
+                  "region": "eu-central",
+                  "cluster": "eu-central-1",
+                  "size": 0,
+                  "objects": 0
+              },
+         ],
+          "page": 1,
+          "pages": 1,
+          "results": 3
+      }
     */
     
   }
@@ -218,8 +218,8 @@ export class ExampleService {
    {
     "data": [
         {
-            "hostname": "examplebucket.eu-central-1.linodeobjects.com",
-            "label": "examplebucket",
+            "hostname": "example-bucket.eu-central-1.linodeobjects.com",
+            "label": "example-bucket",
             "created": "2024-07-04T22:29:48",
             "region": "eu-central",
             "cluster": "eu-central-1",
@@ -274,8 +274,8 @@ export class ExampleService {
 
     /* response example
     {
-      "hostname": "examplebucket.eu-central-1.linodeobjects.com",
-      "label": "examplebucket",
+      "hostname": "example-bucket.eu-central-1.linodeobjects.com",
+      "label": "example-bucket",
       "created": "2024-06-28T12:58:05",
       "region": "eu-central",
       "cluster": "eu-central-1",
@@ -395,7 +395,7 @@ export class ExampleService {
     "IsTruncated": false,
     "KeyCount": 1,
     "MaxKeys": 1000,
-    "Name": "examplebucket",
+    "Name": "example-bucket",
     "Prefix": ""
     } 
     }
@@ -463,7 +463,7 @@ export class ExampleService {
     "IsTruncated": false,
     "KeyCount": 1,
     "MaxKeys": 1000,
-    "Name": "examplebucket",
+    "Name": "example-bucket",
     "Prefix": ""
     } 
     }
@@ -492,7 +492,7 @@ export class ExampleService {
 
 <details>
   <summary>
-  GetFolderInBucket
+  GetFoldersInBucket
   </summary>
 
 
