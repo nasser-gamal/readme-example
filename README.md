@@ -246,12 +246,6 @@ export class ExampleService {
 
 </details>
 
-
-
-
-
-</details>
-
   <details>
   <summary>
      GetBucket
@@ -259,6 +253,7 @@ export class ExampleService {
 
 ```typescript
 // The following example retrieve bucket
+
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -290,7 +285,7 @@ export class ExampleService {
 
 
 
-## GetBucketRegion Input
+## GetBucket Input
 
 | Parameter             | Type                              | Description             |
 | -------------------- | ---------------------------------------- | ------------------- |
