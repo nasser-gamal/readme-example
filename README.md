@@ -367,7 +367,7 @@ export class ExampleService {
         bucket: 'example-bucket' 
       }
 
-      const response = await this.linodeService. getListObjectsInBucket(input);
+      const response = await this.linodeService.getListObjectsInBucket(input);
 
     /* response example
     {
@@ -493,6 +493,7 @@ export class ExampleService {
 
 ```typescript
 // The following example retrieves list of folders in bucket
+
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -504,7 +505,7 @@ export class ExampleService {
         bucket: 'example-bucket',
       }
 
-      const response = await this.linodeService. getFoldersInBucket(input);
+      const response = await this.linodeService.getFoldersInBucket(input);
 
     /* response example
       [
@@ -527,7 +528,6 @@ export class ExampleService {
 | Parameter             | Type                              | Description             |
 | -------------------- | ---------------------------------------- | ------------------- |
 | `bucket` | string             | `(Optional)` Defaults to the bucket specified in environment variables.|
- `key`  | string | `(Required)` The file path |
 
 
 </details>
@@ -542,7 +542,7 @@ export class ExampleService {
 
 
 ```typescript
-// The following example create url for an object within a bucket.
+// The following example  for an create object url within a bucket.
 
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
@@ -557,7 +557,7 @@ export class ExampleService {
         expires: 60;
       }
 
-      const response = await this.linodeService. createObjectURL(input);
+      const response = await this.linodeService.createObjectURL(input);
 
     /* response example
         return url link for example:
@@ -602,12 +602,12 @@ export class ExampleService {
 
       const input = {
         sourceBucket: 'example-bucket';
-        copySource: 'files/file.txt';
+        fileSource: 'files/file.txt';
         destinationBucket: 'new-bucket;
         key: 'newfiles/file.txt';
       }
 
-      const response = await this.linodeService. copyObjectInBucket(input);
+      const response = await this.linodeService.copyObjectInBucket(input);
 
     /* response example
        {
@@ -661,12 +661,12 @@ export class ExampleService {
 
       const input = {
         sourceBucket: 'example-bucket';
-        copySource: 'files/file.txt';
+        fileSource: 'files/file.txt';
         destinationBucket: 'new-bucket;
         key: 'newfiles/file.txt';
       }
 
-      const response = await this.linodeService. moveObjectInBucket(input);
+      const response = await this.linodeService.moveObjectInBucket(input);
 
     /* response example
       {
@@ -718,7 +718,7 @@ export class ExampleService {
         key: 'files/file.txt';
       }
 
-      const response = await this.linodeService. deleteObjectInBucket(input);
+      const response = await this.linodeService.deleteObjectInBucket(input);
 
     /* response example
       {
@@ -770,7 +770,7 @@ export class ExampleService {
         key: ['files/file.txt', 'programming.file.js'];
       }
 
-      const response = await this.linodeService. deleteObjectsInBucket(input);
+      const response = await this.linodeService.deleteObjectsInBucket(input);
 
     /* response example
       {
@@ -820,7 +820,7 @@ export class ExampleService {
         bucket: 'example-bucket';
       }
 
-      const response = await this.linodeService. deleteBucket(input);
+      const response = await this.linodeService.deleteBucket(input);
 
     /* response example
       {
