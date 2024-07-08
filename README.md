@@ -204,6 +204,7 @@ export class ExampleService {
 
 ```typescript
 // The following example retrieve all buckets per region
+
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -309,7 +310,8 @@ export class ExampleService {
 
 
 ```typescript
-// The following example retrieves a list of buckets per region
+// The following example put object in bucket
+
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -495,7 +497,7 @@ export class ExampleService {
 
 
 ```typescript
-// The following example retrieve an object in bucket
+// The following example retrieves list of folders in bucket
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -545,7 +547,8 @@ export class ExampleService {
 
 
 ```typescript
-// The following example retrieve an object in bucket
+// The following example create url for an object within a bucket.
+
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
@@ -586,17 +589,262 @@ export class ExampleService {
 
 
 
-- createBucket
-- getBuckets
-- getBucketsPerRegion
-- getBucket
-- getListObjectsInBucket
-- getObjectInBucket
-- getFoldersInBucket
-- putObjectInBucket
-- createObjectURL
-- copyObjectInBucket
-- moveObjectInBucket
-- deleteObjectInBucket
-- deleteObjectsInBucket
-- deleteStorageBucket
+<details>
+  <summary>
+  CopyObjectInBucket
+  </summary>
+
+
+```typescript
+// The following example copy an object within a bucket.
+
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        sourceBucket: 'example-bucket';
+        copySource: 'files/file.txt';
+        destinationBucket: 'new-bucket;
+        key: 'newfiles/file.txt';
+      }
+
+      const response = await this.linodeService. copyObjectInBucket(input);
+
+    /* response example
+       {
+        "$metadata": {
+            "httpStatusCode": 200,
+            "requestId": "tx00000d14dc914ce654640-00668c6626-65d412d8-default",
+            "attempts": 1,
+            "totalRetryDelay": 0
+        },
+        "CopyObjectResult": {
+            "ETag": "2e4b6f1117e6d0f63c973c79ff88531f",
+            "LastModified": "2024-07-08T22:20:22.501Z"
+        }
+      }
+    */
+  }
+}
+```
+
+
+## CopyObjectInBucket Input
+
+| Parameter             | Type   | Description                                                                                          |
+| --------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `sourceBucket`      | string | `(Optional)` The name of the bucket containing the source object to be copied. Defaults to the bucket specified in environment variables.                     |
+| `fileSource`        | string | `(Required)` The file path of the source object.                           |
+| `destinationBucket` | string | `(Optional)` The name of the bucket where the object will be copied to. Defaults to the bucket specified in environment variables.                              |
+| `key`               | string | `(Required)` The new file path.        |                 
+
+
+</details>
+
+
+
+
+<details>
+  <summary>
+  MoveObjectInBucket
+  </summary>
+
+
+```typescript
+// The following example moves an object within a bucket.
+
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        sourceBucket: 'example-bucket';
+        copySource: 'files/file.txt';
+        destinationBucket: 'new-bucket;
+        key: 'newfiles/file.txt';
+      }
+
+      const response = await this.linodeService. moveObjectInBucket(input);
+
+    /* response example
+      {
+      "$metadata": {
+          "httpStatusCode": 200
+        }
+      }
+    */
+  }
+}
+```
+
+
+## MoveObjectInBucket Input
+
+| Parameter             | Type   | Description                                                                                          |
+| --------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `sourceBucket`      | string | `(Optional)` The name of the bucket containing the source object to be moved. Defaults to the bucket specified in environment variables.                     |
+| `fileSource`        | string | `(Required)` The file path of the source object.                           |
+| `destinationBucket` | string | `(Optional)` The name of the bucket where the object will be moved to. Defaults to the bucket specified in environment variables.                              |
+| `key`               | string | `(Required)` The new file path.        |                 
+
+
+</details>
+
+
+
+
+
+
+<details>
+  <summary>
+  DeleteObjectInBucket
+  </summary>
+
+
+```typescript
+// The following example deletes an object in a bucket.
+
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        bucket: 'example-bucket';
+        key: 'files/file.txt';
+      }
+
+      const response = await this.linodeService. deleteObjectInBucket(input);
+
+    /* response example
+      {
+        "$metadata": {
+            "httpStatusCode": 204,
+            "requestId": "tx000003a4416952f3dc6c7-00668c682f-b85eae8f-default",
+            "attempts": 1,
+            "totalRetryDelay": 0
+          }
+       }
+      */
+  }
+}
+```
+
+
+## DeleteObjectInBucket Input
+
+| Parameter             | Type   | Description                                                                                          |
+| --------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `bucket`  | string | `(Optional)` The name of the bucket containing the object to be deleted. Defaults to the bucket specified in environment variables. |
+| `key`               | string | `(Required)` The  file path.        |                 
+
+
+</details>
+
+
+
+
+
+<details>
+  <summary>
+  DeleteObjectsInBucket
+  </summary>
+
+
+```typescript
+// The following example deletes multiple objects in a bucket.
+
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        bucket: 'example-bucket';
+        key: ['files/file.txt', 'programming.file.js'];
+      }
+
+      const response = await this.linodeService. deleteObjectsInBucket(input);
+
+    /* response example
+      {
+        "$metadata": {
+            "httpStatusCode": 204,
+            "requestId": "tx000003a4416952f3dc6c7-00668c682f-b85eae8f-default",
+            "attempts": 1,
+            "totalRetryDelay": 0
+          }
+       }
+      */
+  }
+}
+```
+
+
+## DeleteObjectsInBucket Input
+
+| Parameter             | Type   | Description                                                                                          |
+| --------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `bucket`  | string | `(Optional)` The name of the bucket containing the object to be deleted. Defaults to the bucket specified in environment variables. |
+| `keys`    | array  | `(Required)` An array of file paths of the objects to be deleted.                                       |
+               
+
+
+</details>
+
+
+
+<details>
+  <summary>
+  DeleteBucket
+  </summary>
+
+
+```typescript
+// The following example deletes a bucket from Linode Object Storage.
+
+import { Injectable } from '@nestjs/common';
+import { LinodeService } from '@wexcute/catalyst-linode-sdk';
+
+@Injectable()
+export class ExampleService {
+  constructor(private readonly linodeService: LinodeService) {}
+
+      const input = {
+        bucket: 'example-bucket';
+      }
+
+      const response = await this.linodeService. deleteBucket(input);
+
+    /* response example
+      {
+          $metadata: {
+            httpStatusCode: 204,
+          },
+       }
+    */
+  }
+}
+```
+
+
+## DeleteBucket Input
+
+| Parameter             | Type   | Description                                                                                          |
+| --------------------- | ------ | ---------------------------------------------------------------------------------------------------- |
+| `bucket`  | string | `(Optional)` The name of the bucket to be deleted. Defaults to the bucket specified in environment variables. |
+   
+
+</details>
+
