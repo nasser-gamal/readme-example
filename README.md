@@ -425,6 +425,7 @@ export class ExampleService {
 
 ```typescript
 // The following example retrieve an object in bucket
+
 import { Injectable } from '@nestjs/common';
 import { LinodeService } from '@wexcute/catalyst-linode-sdk';
 
