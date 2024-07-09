@@ -441,28 +441,20 @@ export class ExampleService {
 
     /* response example
     {
-      {
-    "$metadata": {
-        "httpStatusCode": 200,
-        "requestId": "tx000000195b2520f23g4fa-01268c073f-65db69c4-default",
-        "attempts": 1,
-        "totalRetryDelay": 0
-    },
-    "Contents": [
-        {
-            "Key": "example.txt",
-            "LastModified": "2024-07-08T08:48:24.119Z",
-            "ETag": "\"2c935d77a378c30f029e868236949087\"",
-            "Size": 628,
-            "StorageClass": "STANDARD"
-        }
-    ],
-    "IsTruncated": false,
-    "KeyCount": 1,
-    "MaxKeys": 1000,
-    "Name": "example-bucket",
-    "Prefix": ""
-    } 
+     {
+        "$metadata": {
+            "httpStatusCode": 200,
+            "requestId": "tx00000ead0f2e54cb52830-00asdade06-b84df929-default",
+            "attempts": 1,
+            "totalRetryDelay": 0
+        },
+        "AcceptRanges": "bytes",
+        "LastModified": "2024-07-08T23:36:29.000Z",
+        "ContentLength": 40575,
+        "ETag": "\"f9b8198e93d0f60b2050b8dsdaw65b\"",
+        "ContentType": "application/octet-stream",
+        "Metadata": {}
+     }
     }
     */
   }
