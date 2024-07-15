@@ -159,7 +159,7 @@ export const authOptions =(providers: Provider[],
 ### Example
 
 
-1 - Import the `BasicAuthProvider` and add it to your providers:
+ Import the `BasicAuthProvider` and add it to your providers:
 
 ``` typescript
 // src/pages/api/auth/[...nextauth].ts
