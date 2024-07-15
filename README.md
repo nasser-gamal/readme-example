@@ -184,6 +184,8 @@ const providers = [
   BasicAuthProvider({
     endpoint: 'YOUR_BACKEND_ENDPOINT' // This is the endpoint where the login request will be sent.
   })
+
+  // Add other providers here
 ];
 
 ```
