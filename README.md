@@ -75,9 +75,7 @@ export const authOptions =(providers: Provider[],
 
   return {
     secret,
-    providers: [
-      // Add your providers here
-    ],
+    providers: [...providers],
     session: {
       strategy: 'jwt',
       maxAge: MAX_AGE,
