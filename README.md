@@ -49,7 +49,7 @@ To use the `authOptions` in your Next.js project, import the `authOptions` funct
      context: RouteHandlerContext
    ) {
      const nextAuthSecret = process.env.NEXTAUTH_SECRET;
-     return await NextAuth(req, context, authOptions(nextAuthSecret));
+     return await NextAuth(req, context, authOptions(providers, nextAuthSecret));
    };
 
    export { handler as GET, handler as POST };
