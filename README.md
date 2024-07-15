@@ -37,7 +37,6 @@ To use the `authOptions` in your Next.js project, import the `authOptions` funct
    // src/pages/api/auth/[...nextauth].ts
    import NextAuth from 'next-auth';
    import { NextRequest } from 'next/server';
-   import { Provider } from 'next-auth/providers';
    import { authOptions } from '@wexcute/catalyst-next-auth-config';
 
    interface RouteHandlerContext {
@@ -64,6 +63,7 @@ The `authOptions` function accepts an optional `nextAuthSecret` parameter. If pr
 ```typescript
 import { AuthOptions } from 'next-auth';
 import jwt from 'jsonwebtoken';
+import { Provider } from 'next-auth/providers';
 
 const DEFAULT_NEXTAUTH_SECRET = 'your-static-secret';
 const MAX_AGE = 60 * 60 * 24 * 7; // Example max age of 1 week
