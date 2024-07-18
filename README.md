@@ -68,14 +68,39 @@ import { Provider } from 'next-auth/providers';
 const DEFAULT_NEXTAUTH_SECRET = 'your-static-secret';
 const MAX_AGE = 60 * 60 * 24 * 7; // Example max age of 1 week
 
-export const authOptions =(providers: Provider[],
-  nextAuthSecret?: string)
-  : AuthOptions => {
+interface UserData {
+  username: string;
+  email: string;
+  providerType: string;
+  providerAccountId: string;
+}
+
+const createUser = async (apiUrl: string, userData: UserData) => {
+  const { username, email, providerType, providerAccountId } = userData;
+  const response = await axios.post(apiUrl, {
+    username,
+    email,
+    providerType,
+    providerAccountId,
+  });
+  return response;
+};
+
+
+export const authOptions = ({
+  providers,
+  nextAuthSecret,
+  apiUrl = '',
+}: {
+  providers: Provider[];
+  nextAuthSecret?: string;
+  apiUrl?: string;
+}): AuthOptions => {
   const secret = nextAuthSecret || DEFAULT_NEXTAUTH_SECRET;
 
   return {
     secret,
-    providers: [...providers],
+    providers,
     session: {
       strategy: 'jwt',
       maxAge: MAX_AGE,
@@ -86,7 +111,7 @@ export const authOptions =(providers: Provider[],
         else if (new URL(url).origin === baseUrl) return `${url}`;
         return `${baseUrl}`;
       },
-      async jwt({ token, account, user }) {
+        async jwt({ token, account, user }) {
         if (account) {
           token.accessToken = account.access_token;
         }
@@ -98,7 +123,7 @@ export const authOptions =(providers: Provider[],
             name: token.name,
             email: token.email,
             providerAccountId: token.sub,
-            id: token?.authUser?._id,
+            id: (token?.authUser as any)?._id,
           },
         };
 
@@ -106,6 +131,20 @@ export const authOptions =(providers: Provider[],
           expiresIn: MAX_AGE,
           algorithm: 'HS512',
         });
+
+        if (account && account?.type !== 'credentials') {
+          const response = await createUser(apiUrl, {
+            username: token.name as string,
+            email: token.email as string,
+            providerType: account?.provider as string,
+            providerAccountId: token.sub as string,
+          });
+          if (response.status === 201 || response.status === 200) {
+            const authUser = response.data;
+            return { ...token, jwtPayload, authUser };
+          }
+        }
+
         return { ...token, jwtPayload };
       },
       async session({ session, token }) {
@@ -151,6 +190,17 @@ export const authOptions =(providers: Provider[],
   };
 };
 ```
+
+## authOptions params
+
+| Parameter        | Type        | Description                                                                  |
+| ---------------- | ----------- | ---------------------------------------------------------------------------- |
+| `nextAuthSecret` | string      | `(Optional)` Secret used for signing JWT tokens. Defaults to a predefined secret. |
+| `providers`      | Provider[]  | List of authentication providers.                                              |
+| `apiUrl`         | string      | `(Optional)` URL for the API to create users. Defaults to an empty string.     |
+
+
+
 ## Providers
 
 ### - BasicAuthProvider
