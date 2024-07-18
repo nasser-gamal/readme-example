@@ -48,7 +48,7 @@ To use the `authOptions` in your Next.js project, import the `authOptions` funct
      context: RouteHandlerContext
    ) {
      const nextAuthSecret = process.env.NEXTAUTH_SECRET;
-     return await NextAuth(req, context, authOptions(providers, nextAuthSecret));
+     return await NextAuth(req, context, authOptions({nextAuthSecret, providers, apiUrl }));
    };
 
    export { handler as GET, handler as POST };
@@ -195,9 +195,10 @@ export const authOptions = ({
 
 | Parameter        | Type        | Description                                                                  |
 | ---------------- | ----------- | ---------------------------------------------------------------------------- |
-| `nextAuthSecret` | string      | `(Optional)` Secret used for signing JWT tokens. Defaults to a predefined secret. |
-| `providers`      | Provider[]  | List of authentication providers.                                              |
-| `apiUrl`         | string      | `(Optional)` URL for the API to create users. Defaults to an empty string.     |
+| `nextAuthSecret` | string      | `(Optional)` Secret used for signing JWT tokens. Defaults to a predefined secret if not provided. |
+| `providers`      | Provider[]  | List of authentication providers.                                             |
+| `apiUrl`         | string      | `(Optional)` URL for the backend endpoint to create users for SSO integration.     |
+
 
 
 
@@ -225,7 +226,7 @@ const handler = async function auth(
   req: NextRequest,
   context: RouteHandlerContext
 ) {
-  return await NextAuth(req, context, authOptions(providers));
+  return await NextAuth(req, context, authOptions({ providers }));
 };
 
 export { handler as GET, handler as POST };
