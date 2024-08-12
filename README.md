@@ -22,10 +22,8 @@ npm install '@wexcute/catalyst-ui-components';
 ```
 ## Features
 
-<details>
-<summary>
-  PageWrapper Component
-</summary>
+
+### PageWrapper Component
 
 The `PageWrapper` component is a React component designed to wrap pages with a dynamic header and footer. It utilizes the current route to display the appropriate page title and content.
 
@@ -59,4 +57,4 @@ const MyPage = () => {
 
 export default MyPage;
 ```
-</details>
+
