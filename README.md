@@ -48,7 +48,7 @@ const routes = {
 const MyPage = () => {
 
   const body = () => <div>Page Body Content</div>;
-  const footer = () => <footer>Footer Content</footer>;
+  const footer = () => <footer>Footer Content</footer>; // Optional
 
   return (
      <PageWrapper body={body} routes={routes} footer={footer} />
