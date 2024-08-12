@@ -1,249 +1,59 @@
-# Next Auth Config Package
+# catalyst-ui-components
 
-This package provides a reusable configuration for NextAuth.js, allowing you to share authentication settings across multiple projects.
+This package provides a collection of reusable UI components designed to streamline your development process.
 
 ## Features
 
-- Centralized NextAuth.js configuration
-- Optional override for the `NEXTAUTH_SECRET`
-- Custom JWT and session callbacks
-- Custom providers  (e.g. BasicAuthProvider)
-
-## Installation
-
-To install the package, use npm or yarn:
-
-```bash
-npm install @wexcute/catalyst-next-auth-config
-# or
-yarn add @wexcute/catalyst-next-auth-config
-```
-
-## Usage
-
-To use the `authOptions` in your Next.js project, import the `authOptions` function from the package and pass it to NextAuth.
-
-### Example
-
-1. **Install the necessary dependencies**:
-
-   ```bash
-   npm install next-auth jsonwebtoken
-   ```
-
-2. **Create your NextAuth route handler**:
-
-   ```typescript
-   // src/pages/api/auth/[...nextauth].ts
-   import NextAuth from 'next-auth';
-   import { NextRequest } from 'next/server';
-   import { authOptions } from '@wexcute/catalyst-next-auth-config';
-
-   interface RouteHandlerContext {
-     params: { nextauth: string[] };
-   }
-
-   const handler = async function auth(
-     req: NextRequest,
-     context: RouteHandlerContext
-   ) {
-     const nextAuthSecret = process.env.NEXTAUTH_SECRET;
-     return await NextAuth(req, context, authOptions({ nextAuthSecret, providers, apiUrl }));
-   };
-
-   export { handler as GET, handler as POST };
-   ```
-
-   
-## authOptions params
-
-| Parameter        | Type        | Description                                                                  |
-| ---------------- | ----------- | ---------------------------------------------------------------------------- |
-| `nextAuthSecret` | string      | `(Optional)` Secret used for signing JWT tokens. Defaults to a predefined secret if not provided. |
-| `providers`      | Provider[]  | List of authentication providers.                                             |
-| `apiUrl`         | string      | `(Optional)` URL for the backend endpoint to create users for SSO integration.     |
-
-
-
-## Configuration
-
-The `authOptions` function accepts an optional `nextAuthSecret` parameter. If provided, this secret will be used; otherwise, the default secret defined in the package will be used.
-
-### Example Configuration
-
-```typescript
-import { AuthOptions } from 'next-auth';
-import jwt from 'jsonwebtoken';
-import { Provider } from 'next-auth/providers';
-
-const DEFAULT_NEXTAUTH_SECRET = 'your-static-secret';
-const MAX_AGE = 60 * 60 * 24 * 7; // Example max age of 1 week
-
-interface UserData {
-  username: string;
-  email: string;
-  providerType: string;
-  providerAccountId: string;
-}
-
-const createUser = async (apiUrl: string, userData: UserData) => {
-  const { username, email, providerType, providerAccountId } = userData;
-  const response = await axios.post(apiUrl, {
-    username,
-    email,
-    providerType,
-    providerAccountId,
-  });
-  return response;
-};
-
-
-export const authOptions = ({
-  providers,
-  nextAuthSecret,
-  apiUrl = '',
-}: {
-  providers: Provider[];
-  nextAuthSecret?: string;
-  apiUrl?: string;
-}): AuthOptions => {
-  const secret = nextAuthSecret || DEFAULT_NEXTAUTH_SECRET;
-
-  return {
-    secret,
-    providers,
-    session: {
-      strategy: 'jwt',
-      maxAge: MAX_AGE,
-    },
-    callbacks: {
-      async redirect({ url, baseUrl }) {
-        if (url.startsWith('/')) return `${baseUrl}${url}`;
-        else if (new URL(url).origin === baseUrl) return `${url}`;
-        return `${baseUrl}`;
-      },
-        async jwt({ token, account, user }) {
-        if (account) {
-          token.accessToken = account.access_token;
-        }
-        if (user) {
-          token.accessToken = (user as any)?.token;
-        }
-        const jwtClaims = {
-          user: {
-            name: token.name,
-            email: token.email,
-            providerAccountId: token.sub,
-            id: (token?.authUser as any)?._id,
-          },
-        };
-
-        const jwtPayload = jwt.sign(jwtClaims, secret, {
-          expiresIn: MAX_AGE,
-          algorithm: 'HS512',
-        });
-
-        if (account && account?.type !== 'credentials') {
-          const response = await createUser(apiUrl, {
-            username: token.name as string,
-            email: token.email as string,
-            providerType: account?.provider as string,
-            providerAccountId: token.sub as string,
-          });
-          if (response.status === 201 || response.status === 200) {
-            const authUser = response.data;
-            return { ...token, jwtPayload, authUser };
-          }
-        }
-
-        return { ...token, jwtPayload };
-      },
-      async session({ session, token }) {
-        const customSession = {
-          ...session,
-          type: token.type,
-          accessToken: token.accessToken,
-          jwtPayload: token.jwtPayload,
-          user: {
-            id: token.id,
-            email: token.email,
-            name: token.name,
-            image: token.picture,
-            providerAccountId: token.sub,
-          },
-          createdAt: new Date(),
-        };
-
-        if (token.authUser) {
-          customSession.user = {
-            ...customSession.user,
-            ...token.authUser,
-          };
-        }
-        return customSession;
-      },
-      async signIn({ user, account, profile }) {
-        const userProfile = {
-          name: user.name,
-          email: user.email,
-          image: user.image,
-          providerType: account?.provider,
-          providerAccountId: account?.providerAccountId ?? profile?.sub,
-        };
-
-        return true;
-      },
-    },
-    pages: {
-      signIn: '/login',
-      error: '/error',
-    },
-  };
-};
-```
-
-
-
-## Providers
-
-### - BasicAuthProvider
-   The `BasicAuthProvider` is a custom provider for NextAuth.js that allows you to authenticate users with a backend endpoint.
-
-### Example
-
-
- Import the `BasicAuthProvider` and add it to your providers:
-
-``` typescript
-// src/pages/api/auth/[...nextauth].ts
-import NextAuth from 'next-auth';
-import { NextRequest } from 'next/server';
-import { authOptions, BasicAuthProvider } from '@wexcute/catalyst-next-auth-config';
-
-interface RouteHandlerContext {
-  params: { nextauth: string[] };
-}
-
-const handler = async function auth(
-  req: NextRequest,
-  context: RouteHandlerContext
-) {
-  return await NextAuth(req, context, authOptions({ providers }));
-};
-
-export { handler as GET, handler as POST };
-
-const providers = [
-  BasicAuthProvider({
-    endpoint: 'YOUR_BACKEND_ENDPOINT' // This is the endpoint where the login request will be sent.
-  })
-
-  // Add other providers here
-];
-
-```
-
+- PageWrapper Component: A component to wrap pages with dynamic headers, footers, and content based on the current route.
 
 ## Building
 
-Run `nx build @wexcute/catalyst-next-auth-config` to build the library.
+Run `nx build @wexcute/catalyst-ui-components` to build the library.
+
+## Installation
+
+To install the NX PageWrapper, run the following command in your project root:
+
+```bash
+npm install '@wexcute/catalyst-ui-components';
+
+```
+
+<details>
+<summary>
+  ## PageWrapper Component
+</summary>
+
+The `PageWrapper` component is a React component designed to wrap pages with a dynamic header and footer. It utilizes the current route to display the appropriate page title and content.
+
+
+## Usage
+
+To use the `PageWrapper` component, follow the example below:
+
+### Example
+
+```typescript
+// your-page-name/page.tsx 
+import React from 'react';
+import { PageWrapper } from '@wexcute/catalyst-ui-components';
+
+// Example for routes 
+const routes = {
+  home: { path: '/', label: 'Home' },
+  about: { path: '/dashboard', label: 'Dashboard' },
+};
+
+const MyPage = () => {
+
+  const body = () => <div>Page Body Content</div>;
+  const footer = () => <footer>Footer Content</footer>;
+
+  return (
+     <PageWrapper body={body} routes={routes} footer={footer} />
+  );
+};
+
+export default MyPage;
+
+</details>
