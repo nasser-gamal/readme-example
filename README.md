@@ -1,4 +1,4 @@
-# catalyst-ui-components
+# @catalyst-ui-components
 
 This package provides a collection of reusable UI components designed to streamline your development process.
 
