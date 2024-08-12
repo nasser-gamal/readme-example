@@ -2,9 +2,11 @@
 
 This package provides a collection of reusable UI components designed to streamline your development process.
 
-## Features
+## Table of Contents
 
-- PageWrapper Component: A component to wrap pages with dynamic headers, footers, and content based on the current route.
+- [Building](#Building)
+- [Installation](#installation)
+- [Features](#Features)
 
 ## Building
 
@@ -18,10 +20,11 @@ To install the NX PageWrapper, run the following command in your project root:
 npm install '@wexcute/catalyst-ui-components';
 
 ```
+## Features
 
 <details>
 <summary>
-  ## PageWrapper Component
+  PageWrapper Component
 </summary>
 
 The `PageWrapper` component is a React component designed to wrap pages with a dynamic header and footer. It utilizes the current route to display the appropriate page title and content.
