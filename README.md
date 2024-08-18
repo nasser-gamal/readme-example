@@ -6,7 +6,7 @@ The ToastProvider package offers an easy-to-use solution for displaying toast no
 
 - [Building](#Building)
 - [Installation](#installation)
-- [API](#API)
+- [Usage](#Usage)
 
 ## Building
 
@@ -17,7 +17,7 @@ Run `nx build @wexcute/catalyst-toast-provider` to build the library.
 To use the ToastProvider package, you need to have notistack installed. If you haven't installed it already, do so with the following command:
 
 ```bash
-npm install '@wexcute/catalyst-toast-provider';
+npm install '@wexcute/catalyst-toast-provider'
 
 ```
 
@@ -67,7 +67,7 @@ export default MyPage;
 
 ```
 
-Make sure to include the App component (which wraps your application with ToastProvider) in your RootLayout for Next.js:
+3- Make sure to include the App component (which wraps your application with ToastProvider) in your RootLayout for Next.js:
 
 ``` typescript 
 // root-layout.tsx
