@@ -51,14 +51,14 @@ import { useNotification, TOAST_VARIANT } from "@wexcute/catalyst-toast-provider
 function MyPage() {
   const { showToast } = useNotification();
 
-  const openToast = () => {
-    showToast({
-      msg: "your success message",
-      variant: TOAST_VARIANT.SUCCESS,
-      autoHideDuration: 2000, // optional, default is 3000
-      anchorOrigin: { vertical: 'top', horizontal: 'right' }, // optional, default is { vertical: 'top', horizontal: 'right' }
-    });
-  };
+const openToast = () => {
+  showToast({
+    msg: "your success message",
+    variant: TOAST_VARIANT.SUCCESS,
+    autoHideDuration: 3000, // optional: Duration in milliseconds that the toast will be visible before automatically hiding. Defaults to 3000 milliseconds (3 seconds).
+    anchorOrigin: { vertical: 'top', horizontal: 'right' }, // optional: Position of the toast notification on the screen. Defaults to { vertical: 'top', horizontal: 'right' }.
+  });
+};
 
   return <button onClick={openToast}>Click to Open Toast</button>;
 }
