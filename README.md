@@ -69,8 +69,7 @@ export class ProductModule {}
 3- Create Dto for findManyProduct
 
 ```typescript
-import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString, IsEnum, IsNumber } from 'class-validator';
+import { IsEnum } from 'class-validator';
 import { FindManyOptionsDto, AllowedSortingFields } from '@wexcute/catalyst-api-features';
 
 enum SearchBy {
@@ -79,16 +78,10 @@ enum SearchBy {
 }
 
 export class FindManyProductsDto extends FindManyOptionsDto {
-  @ApiProperty({ example: 'updatedAt', required: false, description: 'Sort by field' })
-  @IsOptional()
-  @IsString()
   // Specifies the fields that can be used for sorting results in the query. 
   @AllowedSortingFields(['createdAt', 'updatedAt', 'name', '_id', 'price', 'stock']) 
   sort?: string;
 
-  @ApiProperty({ type: 'enum', enum: SearchBy, required: false, description: 'Search by field' })
-  @IsOptional()
-  @IsString()
   @IsEnum(SearchBy)
   searchBy?: string;
 }
@@ -165,20 +158,20 @@ export class ProductController {
 ### Sorting
   Enables sorting of records in ascending or descending order by one or more fields.
 
-  Example: `?sort=price,-rating`
+  Example: `?sort=price,-stock`
 
   - `price`: Sorted in ascending order (ASC).
-  
-    Records are sorted from the lowest to the highest value (e.g., from 1 to 10, or from A to Z).
 
-  - `-rating`: Sorted in descending order (DESC).
+    Ascending order (ASC): Records are sorted from the lowest to the highest value (e.g., from 1 to 10, or from A to Z).
+
+  - `-stock`: Sorted in descending order (DESC).
 
     Descending order (DESC): Records are sorted from the highest to the lowest value (e.g., from 10 to 1, or from Z to A).
 
 
 ### Filtering
   Allows you to specify which fields to include in the results, optimizing query performance.
-  
+
    Example: `?fields=name,price`
     
   - name: Includes the name field in the response.
@@ -199,6 +192,5 @@ export class ProductController {
 ### Pagination
   Enables paginated responses for large datasets.
 
-  Example: `?page=2&limit=10` 
+  Example: `?page=1&limit=10` 
   
- - returns 10 records starting from the 11th record
