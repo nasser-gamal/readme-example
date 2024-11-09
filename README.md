@@ -78,12 +78,12 @@ enum SearchBy {
  // Add any additional searchable fields here
 }
 
-export class FindQueryOptionsDto extends FindManyOptionsDto {
+export class FindManyProductsDto extends FindManyOptionsDto {
   @ApiProperty({ example: 'updatedAt', required: false, description: 'Sort by field' })
   @IsOptional()
   @IsString()
   // Specifies the fields that can be used for sorting results in the query. 
-  @AllowedSortingFields(['createdAt', 'updatedAt', 'name', '_id', 'price', 'stock']) // this for 
+  @AllowedSortingFields(['createdAt', 'updatedAt', 'name', '_id', 'price', 'stock']) 
   sort?: string;
 
   @ApiProperty({ type: 'enum', enum: SearchBy, required: false, description: 'Search by field' })
@@ -91,11 +91,6 @@ export class FindQueryOptionsDto extends FindManyOptionsDto {
   @IsString()
   @IsEnum(SearchBy)
   searchBy?: string;
-
-  @ApiProperty({ example: 'Sample Product', required: false, description: 'Search term' })
-  @IsOptional()
-  @IsString()
-  keyword?: string;
 }
 
 ```
@@ -112,6 +107,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { FindManyProductsDto } from './find-products.dto'
 
 @Injectable()
 export class ProductService {
@@ -119,7 +115,7 @@ export class ProductService {
     @InjectModel(Product.name) private productModel: Model<Product>,
   ) {}
 
-  async findWithPagination(query) {
+  async find(query: FindManyProductsDto) {
     const products = this.productModel.find();
     const totalCount = await this.productModel.countDocuments();
 
@@ -153,8 +149,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  async getProducts(@Query() query: any) {
-    return this.productService.findProducts(query);
+  async getProducts(@Query() query: FindManyProductsDto) {
+    return this.productService.find(query);
   }
 }
 
@@ -180,3 +176,9 @@ export class ProductController {
 
 
 
+
+| Name             | Description                              | Example             |
+| -------------------- | ---------------------------------------- | ------------------- |
+| `Filtering` | Allows you to filter database records based on specific fields. | `?title=Laptop&price=100|
+|
+| `Sorting` | Enables sorting of records in ascending or descending order by one or more fields. | `?sort=price,-rating |
