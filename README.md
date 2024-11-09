@@ -180,5 +180,4 @@ export class ProductController {
 | Name             | Description                              | Example             |
 | -------------------- | ---------------------------------------- | ------------------- |
 | `Filtering` | Allows you to filter database records based on specific fields. | `?title=Laptop&price=100|
-|
 | `Sorting` | Enables sorting of records in ascending or descending order by one or more fields. | `?sort=price,-rating |
