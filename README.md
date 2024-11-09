@@ -144,7 +144,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
-  // The PaginateResponseInterceptor is used to transform the response of API calls, adding pagination metadata such as the current page, number of pages, total records
+    // The PaginateResponseInterceptor is used to transform the response of API calls,
+    // adding pagination metadata such as the current page, number of pages, total records
   @UseInterceptors(PaginateResponseInterceptor)
   async getProducts(@Query() query: FindManyProductsDto) {
     return this.productService.find(query);
