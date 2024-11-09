@@ -19,6 +19,8 @@ npm  install @wexcute/catalyst-api-features;
 1. Define the Product entity
 
 ```typescript
+// product.entity.ts
+
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
@@ -45,6 +47,8 @@ export const ProductSchema = SchemaFactory.createForClass(Product);
 2- Create Product Module
 
 ```typescript
+// product.module.ts
+
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ProductService } from './product.service';
@@ -62,7 +66,41 @@ export class ProductModule {}
 
 ```
 
-3. Implement Product Service with ApiFeatures
+3- Create Dto for findManyProduct
+
+```typescript
+import { ApiProperty } from '@nestjs/swagger';
+import { IsOptional, IsString, IsEnum, IsNumber } from 'class-validator';
+import { FindManyOptionsDto, AllowedSortingFields } from '@wexcute/catalyst-api-features';
+
+enum SearchBy {
+  name = 'name',
+ // Add any additional searchable fields here
+}
+
+export class FindQueryOptionsDto extends FindManyOptionsDto {
+  @ApiProperty({ example: 'updatedAt', required: false, description: 'Sort by field' })
+  @IsOptional()
+  @IsString()
+  // Specifies the fields that can be used for sorting results in the query. 
+  @AllowedSortingFields(['createdAt', 'updatedAt', 'name', '_id', 'price', 'stock']) // this for 
+  sort?: string;
+
+  @ApiProperty({ type: 'enum', enum: SearchBy, required: false, description: 'Search by field' })
+  @IsOptional()
+  @IsString()
+  @IsEnum(SearchBy)
+  searchBy?: string;
+
+  @ApiProperty({ example: 'Sample Product', required: false, description: 'Search term' })
+  @IsOptional()
+  @IsString()
+  keyword?: string;
+}
+
+```
+
+4- Implement Product Service with ApiFeatures
 
 ```typescript
 // product.service.ts
@@ -103,11 +141,11 @@ export class ProductService {
 }
 
 ```
-4. Create Product Controller
+5- Create Product Controller
 ```typescript
 // product.controller.ts
 
-import { Controller, Get, Post, Body, Query, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 
 @Controller('products')
