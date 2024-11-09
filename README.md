@@ -159,32 +159,46 @@ export class ProductController {
 
 ## Features
 ### Filtering
-    Allows you to filter database records based on specific fields.
-    Example: ?category=electronics&brand=Apple
+  Allows you to filter database records based on specific fields.
+  
+  Example: `?category=electronics&brand=Apple`
 ### Sorting
-    Enables sorting of records in ascending or descending order by one or more fields.
-    Example: ?sort=price,-rating (sorts by price ascending and rating descending)
+  Enables sorting of records in ascending or descending order by one or more fields.
+
+  Example: `?sort=price,-rating`
+
+  - `price`: Sorted in ascending order (ASC).
+  
+    Records are sorted from the lowest to the highest value (e.g., from 1 to 10, or from A to Z).
+
+  - `-rating`: Sorted in descending order (DESC).
+
+    Descending order (DESC): Records are sorted from the highest to the lowest value (e.g., from 10 to 1, or from Z to A).
+
+
 ### Filtering
-    Allows you to specify which fields to include in the results, optimizing query performance.
-    Example: ?fields=name,price (returns only the name and price of each record)
-### Filtering
-    Provides a simple way to perform text-based searches on specified fields.
-    Example: ?search=Apple (finds all records containing "Apple")
+  Allows you to specify which fields to include in the results, optimizing query performance.
+  
+   Example: `?fields=name,price`
+    
+  - name: Includes the name field in the response.
+  - price: Includes the price field in the response.
+  
+  This query will return only the name and price of each record, omitting all other fields.
+
+
+### Searching
+  Provides a simple way to perform text-based searches on specified fields.
+  
+  Example: `?searchBy=name&keyword=laptop` 
+  
+  - name: Specifies the field to search within (e.g., the product name).
+  - keyword=`laptop`: The search term, which in this case is "laptop".
+
+
 ### Pagination
-    Enables paginated responses for large datasets.
-    Example: ?page=2&limit=10 (returns 10 records starting from the 11th record)
+  Enables paginated responses for large datasets.
 
-
-
-### Filtering
-
-| Description     | Example     | 
-| -------------------- | ---------------------------------------- | 
-| Allows you to filter database records based on specific fields. |   ?title=Laptop&price=100    |
-
-
-### Sorting
-
-| Description     | Example     | Note |
-| -------------------- | ---------------------------------------- | ------------------- |
-| Enables sorting of records in ascending or descending order by one or more fields. |  ?sort=price,-rating    | (sorts by price ascending and rating descending) |
+  Example: `?page=2&limit=10` 
+  
+ - returns 10 records starting from the 11th record
