@@ -11,7 +11,7 @@ Run `nx build @wexcute/catalyst-api-features` to build the library.
 To install the NX NestJS api-features Module, run the following command in your project root:
 
 ```bash
-npm  install @wexcute/catalyst-api-features;
+npm  install @wexcute/catalyst-api-features
 ```
 
 
@@ -122,7 +122,9 @@ export class ProductService {
       .search()
       .sort()
       .paginate();
-
+      
+ // IMPORTANT: Return the keys 'records' and 'totalCount' to ensure consistency in the response structure.
+  // 'records' contains the actual product data, while 'totalCount' provides the total number of products for pagination.
     return { records, totalCount };
   }
 
@@ -134,7 +136,7 @@ export class ProductService {
 ```typescript
 // product.controller.ts
 
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, UseInterceptors } from '@nestjs/common';
 import { ProductService } from './product.service';
 
 @Controller('products')
@@ -142,6 +144,8 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get()
+  // The PaginateResponseInterceptor is used to transform the response of API calls, adding pagination metadata such as the current page, number of pages, total records
+  @UseInterceptors(PaginateResponseInterceptor)
   async getProducts(@Query() query: FindManyProductsDto) {
     return this.productService.find(query);
   }
