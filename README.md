@@ -174,7 +174,7 @@ export class ProductController {
     Descending order (DESC): Records are sorted from the highest to the lowest value (e.g., from 10 to 1, or from Z to A).
 
 
-### Filtering
+### LimitFields
   Allows you to specify which fields to include in the results, optimizing query performance.
 
    Example: `?fields=name,price`
