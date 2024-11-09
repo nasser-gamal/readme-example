@@ -16,9 +16,53 @@ npm  install @wexcute/catalyst-api-features;
 
 
 ## Usage
-### Importing ApiFeatures
+1. Define the Product entity
 
-To use the ApiFeatures module in your NestJS application, import it in your service. This example demonstrates how to set up pagination and retrieve filtered results:
+```typescript
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+
+@Schema({ timestamps: true })
+export class Product {
+  @Prop({ required: true })
+  title: string;
+
+  @Prop()
+  description: string;
+
+  @Prop({ required: true })
+  price: number;
+
+  @Prop({ default: 0 })
+  stock: number;
+
+  @Prop({ default: 0 })
+  sold: number;
+}
+
+export const ProductSchema = SchemaFactory.createForClass(Product);
+```
+
+2- Create Product Module
+
+```typescript
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ProductService } from './product.service';
+import { ProductController } from './product.controller';
+import { Product, ProductSchema } from './schemas/product.schema';
+
+@Module({
+  imports: [
+    MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
+  ],
+  controllers: [ProductController],
+  providers: [ProductService],
+})
+export class ProductModule {}
+
+```
+
+3. Implement Product Service with ApiFeatures
 
 ```typescript
 // product.service.ts
@@ -54,9 +98,30 @@ export class ProductService {
 
     return { records, totalCount };
   }
+
+  // ... other methods
 }
 
 ```
+4. Create Product Controller
+```typescript
+// product.controller.ts
+
+import { Controller, Get, Post, Body, Query, Param, Put, Delete } from '@nestjs/common';
+import { ProductService } from './product.service';
+
+@Controller('products')
+export class ProductController {
+  constructor(private readonly productService: ProductService) {}
+
+  @Get()
+  async getProducts(@Query() query: any) {
+    return this.productService.findProducts(query);
+  }
+}
+
+```
+
 
 ## Features
 ### Filtering
