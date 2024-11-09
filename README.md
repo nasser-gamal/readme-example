@@ -122,9 +122,9 @@ export class ProductService {
       .search()
       .sort()
       .paginate();
-      
- // IMPORTANT: Return the keys 'records' and 'totalCount' to ensure consistency in the response structure.
-  // 'records' contains the actual product data, while 'totalCount' provides the total number of products for pagination.
+
+    // IMPORTANT: Return the keys 'records' and 'totalCount' to ensure consistency in the response structure.
+    // 'records' contains the actual product data, while 'totalCount' provides the total number of products for pagination.
     return { records, totalCount };
   }
 
