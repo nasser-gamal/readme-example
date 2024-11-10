@@ -170,7 +170,9 @@ export class ProductController {
 ```plaintext
 ?name=electronics&price=100 
 ```
-// Retrieves records where name is "electronics" and price is 100
+
+**Example:**  
+ Retrieves records where name is "electronics" and price is 100
 
 You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records based on conditions:
 
