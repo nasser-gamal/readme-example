@@ -168,7 +168,7 @@ export class ProductController {
 
 **Example:**  
 ```plaintext
-?name=electronics&price=100
+?name=electronics&price=100  // Retrieves records where name is "electronics" and price is 100
 ```
 You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records based on conditions:
 
@@ -195,7 +195,7 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 **Example:**  
   
 ```plaintext
- ?sort=price,-stock
+?sort=price,-stock  // Retrieves records sorted by price (ascending) and stock (descending)
 ```
   - `price`: Sorted in ascending order (ASC).
 
@@ -234,7 +234,8 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
   
 **Example:**  
 ```plaintext
- ?searchBy=name&keyword=laptop 
+?searchBy=name&keyword=laptop   // Retrieves records where the name contains the keyword "laptop"
+
 ```
 
   - name: Specifies the field to search within (e.g., the product name).
@@ -251,7 +252,8 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 
 **Example:**  
 ```plaintext
-  ?page=1&limit=10
+?page=1&limit=10   // Retrieves the first 10 records on page 1
+
 ```
 </details>
 
