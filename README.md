@@ -159,8 +159,11 @@ export class ProductController {
 
 
 ## Features
-
+<details>
+<sammary>
 ### 1. Filtering
+<sammary>
+
 Allows you to filter database records based on specific fields.
 
 **Example:**  
@@ -180,6 +183,7 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 
 ?price[lt]=1000  // Retrieves records where the price is less than 1000
 ```
+<details>
 
 ### 2. Sorting
   Enables sorting of records in ascending or descending order by one or more fields.
