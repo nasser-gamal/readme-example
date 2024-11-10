@@ -161,10 +161,10 @@ export class ProductController {
 ## Features
 <details>
 <summary>
-### 1. Filtering
+  Filtering
 </summary>
 
-Allows you to filter database records based on specific fields.
+    Allows you to filter database records based on specific fields.
 
 **Example:**  
 ```plaintext
