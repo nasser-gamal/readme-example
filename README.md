@@ -2,6 +2,13 @@
 
 This package, @wexcute/catalyst-api-features, provides a convenient way to interact with Linode Object Storage using AWS SDK through a set of utility methods tailored for database management and query handling in NestJS applications. It includes powerful tools for filtering, sorting, paginating, and searching through database records.
 
+## Table of Contents
+
+- [Building](#Building)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Features](#Features)
+
 ## Building
 
 Run `nx build @wexcute/catalyst-api-features` to build the library.
