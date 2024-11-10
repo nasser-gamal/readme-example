@@ -168,12 +168,8 @@ export class ProductController {
 
 **Example:**  
 ```plaintext
-?name=electronics&price=100 
+?name=electronics&price=100  // Retrieves records where name is "electronics" and price is 100
 ```
-
-**Explain:**  
- Retrieves records where name is "electronics" and price is 100
-
 You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records based on conditions:
 
 - gt (greater than)
@@ -181,7 +177,6 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 - lt (less than)
 - lte (less than or equal to)
 - eq (equal to)
-
 **Examples with Operators:**  
 ```plaintext
 ?sold[gte]=10  // Retrieves records where sold is greater than or equal 10
