@@ -16,6 +16,9 @@ npm  install @wexcute/catalyst-api-features
 
 
 ## Usage
+
+Follow these steps to integrate and use the package in your application:
+
 1. Define the Product entity
 
 ```typescript
