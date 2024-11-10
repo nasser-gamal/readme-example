@@ -156,46 +156,79 @@ export class ProductController {
 
 
 ## Features
-### Filtering
-  Allows you to filter database records based on specific fields.
-  
-  Example: `?category=electronics&brand=Apple`
-### Sorting
+
+### 1. Filtering
+Allows you to filter database records based on specific fields.
+
+**Example:**  
+```plaintext
+?name=electronics&price=100
+```
+You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records based on conditions:
+
+- gt (greater than)
+- gte (greater than or equal to)
+- lt (less than)
+- lte (less than or equal to)
+- eq (equal to)
+**Examples with Operators:**  
+```plaintext
+?sold[gte]=10  // Retrieves records where sold is greater than or equal 10
+
+?price[lt]=1000  // Retrieves records where the price is less than 1000
+
+```
+
+### 2. Sorting
   Enables sorting of records in ascending or descending order by one or more fields.
 
-  Example: `?sort=price,-stock`
-
+**Example:**  
+  
+```plaintext
+ `?sort=price,-stock`
+```
   - `price`: Sorted in ascending order (ASC).
 
-    Ascending order (ASC): Records are sorted from the lowest to the highest value (e.g., from 1 to 10, or from A to Z).
+    - Ascending order (ASC): Records are sorted from the lowest to the highest value (e.g., from 1 to 10, or from A to Z).
 
   - `-stock`: Sorted in descending order (DESC).
 
-    Descending order (DESC): Records are sorted from the highest to the lowest value (e.g., from 10 to 1, or from Z to A).
+    - Descending order (DESC): Records are sorted from the highest to the lowest value (e.g., from 10 to 1, or from Z to A).
 
 
-### LimitFields
+### 3. Limit Fields
   Allows you to specify which fields to include in the results, optimizing query performance.
 
-   Example: `?fields=name,price`
-    
+**Example:**  
+
+```plaintext
+  ?fields=name,price
+```
   - name: Includes the name field in the response.
   - price: Includes the price field in the response.
   
-  This query will return only the name and price of each record, omitting all other fields.
+  This query will return only the `name` and `price` of each record, omitting all other fields.
 
 
-### Searching
+### 4. Searching
   Provides a simple way to perform text-based searches on specified fields.
   
-  Example: `?searchBy=name&keyword=laptop` 
-  
+**Example:**  
+```plaintext
+ ?searchBy=name&keyword=laptop 
+```
+
   - name: Specifies the field to search within (e.g., the product name).
   - keyword=`laptop`: The search term, which in this case is "laptop".
 
 
-### Pagination
+### 5. Pagination
+
   Enables paginated responses for large datasets.
 
-  Example: `?page=1&limit=10` 
+**Example:**  
+```plaintext
+  ?page=1&limit=10
+```
+
   
