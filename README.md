@@ -164,7 +164,7 @@ export class ProductController {
   Filtering
 </summary>
 
-    Allows you to filter database records based on specific fields.
+  Allows you to filter database records based on specific fields.
 
 **Example:**  
 ```plaintext
@@ -185,7 +185,11 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 ```
 </details>
 
-### 2. Sorting
+<details>
+<summary>
+  Sorting
+</summary>
+
   Enables sorting of records in ascending or descending order by one or more fields.
 
 **Example:**  
@@ -200,9 +204,14 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
   - `-stock`: Sorted in descending order (DESC).
 
     - Descending order (DESC): Records are sorted from the highest to the lowest value (e.g., from 10 to 1, or from Z to A).
+</details>
 
 
-### 3. Limit Fields
+<details>
+<summary>
+  Limit Fields
+</summary>
+
   Allows you to specify which fields to include in the results, optimizing query performance.
 
 **Example:**  
@@ -212,11 +221,15 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 ```
   - name: Includes the name field in the response.
   - price: Includes the price field in the response.
+</details>
   
 
 
+<details>
+<summary>
+  Searching
+</summary>
 
-### 4. Searching
   Provides a simple way to perform text-based searches on specified fields.
   
 **Example:**  
@@ -226,9 +239,13 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 
   - name: Specifies the field to search within (e.g., the product name).
   - keyword=`laptop`: The search term, which in this case is "laptop".
+</details>
 
 
-### 5. Pagination
+<details>
+<summary>
+  Pagination
+</summary>
 
   Enables paginated responses for large datasets.
 
@@ -236,5 +253,7 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 ```plaintext
   ?page=1&limit=10
 ```
+</details>
+
 
   
