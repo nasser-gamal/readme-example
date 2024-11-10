@@ -179,7 +179,6 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 ?sold[gte]=10  // Retrieves records where sold is greater than or equal 10
 
 ?price[lt]=1000  // Retrieves records where the price is less than 1000
-
 ```
 
 ### 2. Sorting
@@ -188,7 +187,7 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 **Example:**  
   
 ```plaintext
- `?sort=price,-stock`
+ ?sort=price,-stock
 ```
   - `price`: Sorted in ascending order (ASC).
 
@@ -205,12 +204,12 @@ You can filter with operators such as `gt, gte, lt, lte, eq` to retrieve records
 **Example:**  
 
 ```plaintext
-  ?fields=name,price
+  ?fields=name,price  //  Retrieves only the `name` and `price` of each record, omitting all other fields.
 ```
   - name: Includes the name field in the response.
   - price: Includes the price field in the response.
   
-  This query will return only the `name` and `price` of each record, omitting all other fields.
+
 
 
 ### 4. Searching
